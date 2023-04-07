@@ -1,0 +1,33 @@
+<div *ngIf="courses.length > 0; else elseBlock">
+    <div class="container mt-2 courseContainer">
+        <h2 class="text-center text-warning p-3 mb-2">Unpublish Course</h2>
+        <div class="row justify-content-around">    
+            <div class="card border border-primary col-12 col-sm-5 col-lg-3 shadow-0 mx-1 mb-5" style="min-width: 32%;" *ngFor="let c of courses">
+                <div class="row">
+                    <div class="col-12 m-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{c.courseName}}</h5>
+                            <p class="card-text text-primary">{{c.courseDesc}}</p>
+                        </div>
+                    </div>
+                    <p class="item-card-title mt-0 mb-1 text-end p-2" style="font-size: 13px;">Course capacity- {{c.courseCapacity}}</p>
+                    <div class="col-6">
+                        <button class="w-100 btn btn-success mb-1 btn-sm viewBtn align-middle" (click)="updateCourse(c.courseId)"> Update</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="w-100 btn btn-danger mb-1 btn-sm viewBtn align-middle" (click)="deleteCourse(c.courseId)"> Delete</button>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="float-start"><i class="fw-bold">Created on-</i> {{c.createdOn | date :  'd MMMM y'}}</span>
+                    <span class="float-end"><i class="fw-bold">Modified on-</i> {{c.modifyOn | date :  'd MMMM y'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <h5 class="text-center text-danger pt-3">
+        No courses are unpublished.
+    </h5>
+</ng-template>

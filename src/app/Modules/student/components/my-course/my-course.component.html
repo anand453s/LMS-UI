@@ -1,0 +1,61 @@
+<div class="container mt-2 courseContainer">
+    <h2 class="text-center p-3 mb-2">My Enrolled Course</h2>
+    <div class="row justify-content-around">    
+        <div class="card border border-primary shadow-0 mb-3" *ngFor="let e of allEnrolledCourse">
+            <div class="row">
+                <div class="col-12 col-sm-9 col-lg-10">
+                    <div class="card-body">
+                        <h5 class="card-title">{{e.courseName}}</h5>
+                        <p class="card-text text-primary">{{e.courseDesc}}</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-3 col-lg-2">
+                    <button (click)="viewCourseMaterial(viewMaterialModal, e.courseId, e.courseName)" class="w-100 btn btn-info mb-1 btn-sm viewBtn align-middle"><i class="fa-solid fa-eye"></i> View</button>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="float-start"><i>Created by-</i> {{e.createdByName}}</span>
+                <span class="float-end"><i>Created on-</i> {{e.createdOn | date :  'd MMMM y'}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- View Course Material Modal -->
+<ng-template #viewMaterialModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="view-material-modal">Course Material of <span class="text-danger">{{courseName}}</span></h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="container table-responsive py-5"> 
+            <table class="table table-bordered table-hover table-striped text-center">
+              <thead class="thead-dark  table-danger">
+                <tr>
+                  <th scope="col">S. No.</th>
+                  <th scope="col">Course Name</th>
+                  <th scope="col">Course Desc.</th>
+                  <th scope="col">File</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let c of courseMaterial; index as i">
+                <tr>
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{c.materialName}}</td>
+                  <td>{{c.materialDesc}}</td>
+                  <td>
+                    <a *ngIf="c.filePath != null" download href="data:application/pdf;base64, {{c.filePath}}"><i class="fa-solid fa-download fs-3 text-success"></i></a>
+                    </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+    </div>
+  </ng-template>

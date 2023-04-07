@@ -1,1 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
+.form-error-msg {
+  color: red;
+  font-size: small;
+  font-style: italic;
+  letter-spacing: 1.2px;
+  text-shadow: 1px 1px 5px rgba(85, 125, 140, 0.7);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.main-div {
+  width: 100%;
+  box-shadow: inset -1px -7px 28px 3px rgba(1, 1, 1, 0.11);
+  height: 100%;
+}
+
+ul.tabs {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+ul.tabs li {
+  padding: 0px 0px 10px 0px;
+  cursor: pointer;
+}
+
+.tab-content {
+  padding: 15px;
+  transition: 0.3s ease all;
+}
+
+/*------ease effect------*/
+
+.customize_solution button.ease-effect {
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  padding: 14px 0px;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.customize_solution .ease-effect:before {
+  -webkit-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  opacity: 0;
+  content: '';
+  background-color: #1AA8E2;
+  z-index: -2;
+}
+
+.customize_solution .ease-effect:hover:before,
+.customize_solution .ease-effect:focus:before {
+  -webkit-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+

@@ -1,0 +1,18 @@
+<div class="container mt-2 courseContainer">
+    <h2 class="text-center p-3 mb-2">All Course</h2>
+  <div class="row justify-content-around">
+    <div class="col-md-3 col-sm-6 item m-3" style="width: 18rem"  *ngFor="let c of publishedCourse">
+        <ng-container *ngIf="c.isPublish == true && c.isActive == true">
+            <div class="card item-card card-block">
+                <h3 class="card-title text-center title p-2">{{ c.courseName}}</h3>
+                <h5 class="item-card-title mt-0 mb-3 text-center p-2">• {{c.createdByName}}</h5>
+                <p class="card-text px-3 mb-0">{{c.courseDesc}}</p>
+                <div class="p-1 bg-dark text-center">
+                    <a (click)="enroll(c.courseId)" class="card-link btn btn-outline-primary text-light">Enroll Now</a>
+                </div>
+                <div class="linkContainer text-end px-1"><span class="fw-bold">Created On: </span> {{c.createdOn | date : 'd MMMM y'}}</div>
+            </div>
+        </ng-container>
+    </div>
+  </div>
+</div>

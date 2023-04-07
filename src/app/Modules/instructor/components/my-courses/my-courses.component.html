@@ -1,0 +1,132 @@
+<div class="contain">
+    <div class="col-lg-8 col-xl-8 col-12 main-div">
+        <div class="customize_solution ">
+            <ul class="nav nav-pills mb-0 tabs nav-justified row" id="pills-tab" role="tablist">
+                <li class="nav-item col-sm-4" role="presentation">
+                  <button class="nav-link active ease-effect w-100" id="publish-tab" data-bs-toggle="pill" data-bs-target="#publish" type="button" role="tab" aria-controls="publish" aria-selected="true">Published</button>
+                </li>
+                <li class="nav-item col-sm-4" role="presentation">
+                  <button class="nav-link ease-effect w-100" id="unpublish-tab" data-bs-toggle="pill" data-bs-target="#unpublish" type="button" role="tab" aria-controls="unpublish" aria-selected="false">Pending</button>
+                </li>
+              </ul>
+              <div class="tab-content pt-0" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="publish" role="tabpanel" aria-labelledby="publish-tab">
+
+                  <app-publish-course [courses]="publishedCourse" (deleteEvent)="deleteCourse($event)" (updateEvent)="openUpdateCourse($event,updateModal)" (addMaterialEvent)="openAddMaterial($event,addMaterialModal)" (viewMaterialEvent)="openCourseMaterial($event, viewMaterialModal)"></app-publish-course>
+
+                </div>
+                <div class="tab-pane fade" id="unpublish" role="tabpanel" aria-labelledby="unpublish-tab">
+
+                  <app-unpublish-course [courses]="unpublishedCourse" (deleteEvent)="deleteCourse($event)" (updateEvent)="openUpdateCourse($event,updateModal)"></app-unpublish-course>
+
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Course Modal -->
+<ng-template #updateModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="update-modal">Update course details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="updateCourseForm" (ngSubmit)="updateCourse()">
+      <div class="form-group pb-3">
+          <input type="text" placeholder="Course title" class="form-control" formControlName="courseName">
+      </div>
+      <div class="form-group pb-3">
+          <textarea placeholder="Course description" rows="8" class="form-control" formControlName="courseDesc"></textarea>
+      </div>
+      <div class="form-group pb-3">
+          <input type="number" placeholder="Maximum enrollment capacity." step="1" onkeydown="if(event.key==='.'){event.preventDefault();}" class="form-control" formControlName="courseCapacity">
+      </div>
+      <span class="form-error-msg">{{validationMsg}}</span>
+      <div class="pb-2">
+          <button type="submit" (click)="modal.close();" class="btn btn-success w-100 font-weight-bold mt-2">Update Course</button>
+      </div>
+  </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+  </div>
+</ng-template>
+
+
+<!-- Add Course Material Modal -->
+<ng-template #addMaterialModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="add-material-modal">Add Course Material for <span class="text-danger">{{courseName}}</span></h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addMaterialForm" (ngSubmit)="addCourseMaterial()">
+      <div class="form-group pb-3">
+          <input type="text" placeholder="Material name" class="form-control" formControlName="materialName">
+      </div>
+      <div class="form-group pb-3">
+          <textarea placeholder="Material description" rows="8" class="form-control" formControlName="materialDesc"></textarea>
+      </div>
+      <div class="form-group pb-3">
+          <input type="file" class="form-control" (change)="onImgChange($event)">
+      </div>
+      <span class="form-error-msg">{{validationMsg}}</span>
+      <div class="pb-2">
+          <button type="submit" [disabled]="addMaterialForm.invalid" (click)="modal.close();" class="btn btn-success w-100 font-weight-bold mt-2">Add Material</button>
+      </div>
+  </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+  </div>
+</ng-template>
+
+
+
+<!-- (click)="viewCourseMaterial(viewMaterialModal, e.courseId, e.courseName)" -->
+
+<!-- View Course Material Modal -->
+<ng-template #viewMaterialModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="view-material-modal">Course Material of <span class="text-danger">{{courseName}}</span></h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="container table-responsive py-5"> 
+          <table class="table table-bordered table-hover table-striped text-center">
+            <thead class="thead-dark  table-danger">
+              <tr>
+                <th scope="col">S. No.</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Course Desc.</th>
+                <th scope="col">File</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let c of courseMaterial; index as i">
+              <tr>
+                <th scope="row">{{i+1}}</th>
+                <td>{{c.materialName}}</td>
+                <td>{{c.materialDesc}}</td>
+                <td>
+                  <a *ngIf="c.filePath != null" download href="data:application/pdf;base64, {{c.filePath}}"><i class="fa-solid fa-download fs-3 text-success"></i></a>
+                </td>
+                <td>
+                  <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can" (click)="deleteMaterial(c.id)"></i></button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+  </div>
+</ng-template>

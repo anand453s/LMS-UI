@@ -1,0 +1,53 @@
+<div id="profileBox">
+    <form  [formGroup]="editProfile" (ngSubmit)="updateProfile()">
+        <div class="row box p-4">
+            <div class="col-sm-12 mb-4">
+                <div class="profilePic">
+                    <img *ngIf="data.profilePic" src="data:image/png;base64, {{data.profilePic}}" class="img" alt="" height="150" width="150">
+                </div>
+            </div>
+            
+            <div class="col-sm-6 form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" formControlName="fullName" readonly>
+            </div>
+            
+            <div class="col-sm-6 form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email" readonly>
+            </div>
+            
+            <div class="col-sm-6 form-group">
+                <label for="mob">Mobile</label>
+                <input type="number" class="form-control" id="mob" min="0" step="1" onkeydown="if(event.key==='.'){event.preventDefault();}" placeholder="Enter Your Contact Number." formControlName="mobile">
+            </div>
+            
+            <div class="col-sm-6 form-group">
+                <label for="">Gender</label><br>
+                <label for="male">Male:</label>
+                <input type="radio" value="MALE" id="male" formControlName="gender" class="m-3">
+                <label for="female">Female:</label>
+                <input type="radio" value="FEMALE" id="female" formControlName="gender" class="m-3">
+            </div>
+            
+            <div class="col-sm-6 form-group">
+                <label for="pic">Update Profile Picture</label>
+                <input type="file" class="form-control" id="pic" placeholder="Enter Your Contact Number." (change)="onImgChange($event)" >
+            </div>
+
+            <div class="col-sm-6 form-group">
+                <label for="address">Address</label>
+                <input type="address" class="form-control" id="address" placeholder="Enter your full address." formControlName="address" >
+            </div>
+            
+            <div class="col-sm-6 form-group">
+                <label for="college">College</label>
+                <input type="text" class="form-control" id="college" placeholder="Enter college name" formControlName="college">
+            </div>
+            
+            <div class="col-sm-6 form-group mb-4">
+                <button type="submit" [disabled]="editProfile.invalid" class="btn btn-success float-end mt-4">Update Profile</button>
+            </div>
+        </div>
+    </form>
+</div>

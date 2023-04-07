@@ -1,0 +1,30 @@
+<div *ngIf="courses.length > 0; else elseBlock">
+    <div class="container mt-2 courseContainer">
+        <h2 class="text-center text-success p-3 mb-2">Published Course</h2>
+        <div class="row justify-content-around">
+            <div class="col-lg-5 col-11 col-md-8 item m-3" *ngFor="let c of courses">
+                <div class="card item-card card-block">
+                    <div (click)="viewCourseMaterial({courseId:c.courseId,courseName:c.courseName})">
+                        <h3 class="card-title text-center title p-2">{{ c.courseName}}</h3>
+                        <p class="card-text px-3 mb-0" style="text-indent: 25px;">{{c.courseDesc}}</p>
+                        <h5 class="item-card-title mt-0 mb-3 text-end p-2">Course capacity- {{c.courseCapacity}}</h5>
+                    </div>
+                    <div class="p-1 bg-dark text-center">
+                        <a class="card-link btn btn-outline-success btn-sm text-light" (click)="addCourseMaterial({courseId:c.courseId,courseName:c.courseName})">Add Material</a>
+                        <a class="card-link btn btn-outline-primary btn-sm text-light" (click)="updateCourse(c.courseId)">Update Course</a>
+                        <a class="card-link btn btn-outline-danger btn-sm text-light" (click)="deleteCourse(c.courseId)">Delete Course</a>
+                    </div>
+                    <div class="linkContainer text-start px-1">
+                        <span class="float-start"><i class="fw-bold">Created on-</i> {{c.createdOn | date :  'd MMMM y'}}</span>
+                        <span class="float-end"><i class="fw-bold">Modified on-</i> {{c.modifyOn | date :  'd MMMM y'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <h5 class="text-center text-danger pt-3">
+        None of your courses have been published yet.
+    </h5>
+</ng-template>

@@ -1,0 +1,4 @@
+<app-navbar [fullName]="data.fullName"></app-navbar>
+<div class="container">
+    <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+</div>

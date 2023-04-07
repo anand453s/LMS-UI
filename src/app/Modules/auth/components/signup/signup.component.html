@@ -1,0 +1,75 @@
+<app-navbar>
+    <li class="nav-item userLinks">
+        <a class="nav-link" routerLink="/home">Home</a>
+    </li>
+    <li class="nav-item userLinks">
+        <a class="nav-link" routerLink="/aboutus">About</a>
+    </li>
+    <div class="publicBtn">
+        <a routerLink="/login" class="btn btn-outline-light fw-bold me-2">Login</a>
+    </div>
+</app-navbar>
+<div class="container signup-page">
+    <div class="col-lg-6 offset-lg-3">
+        <h3 class="text-center text-white bg-dark p-2 rounded-top" style="margin-bottom: 0px">Register Now</h3>
+        <div class="bg-white shadow rounded h-100 py-4 px-5">
+            <form class="row g-3" [formGroup]="signupForm" (ngSubmit)="signup()">
+                <div class="col-12">
+                    <label>Full Name<span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fa-solid fa-user"></i></div>
+                        <input type="text" class="form-control" placeholder="Enter your full name" formControlName="fullName" />
+                    </div>
+                    <span class="form-error-msg">{{nameErrorMsg}}</span>
+                </div>
+
+                <div class="col-12">
+                    <label>Email<span class="text-danger"> *</span></label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fa-solid fa-user"></i></div>
+                        <input type="email" class="form-control" placeholder="Enter your email" formControlName="email" />
+                    </div>
+                    <span class="form-error-msg">{{emailErrorMsg}}</span>
+                </div>
+
+                <div class="col-12">
+                    <label>Password<span class="text-danger"> *</span></label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fa-solid fa-lock"></i></div>
+                        <input type="password" class="form-control" placeholder="Enter your password" formControlName="password" />
+                    </div>
+                    <span class="form-error-msg">{{passwordErrorMsg}}</span>
+                </div>
+
+                <div class="col-12">
+                    <label>Confirm Password<span class="text-danger"> *</span></label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fa-solid fa-lock"></i></div>
+                        <input type="password" class="form-control" placeholder="Confirm password" formControlName="cnfPass" />
+                    </div>
+                    <span class="form-error-msg">{{cnfPassErrorMsg}}</span>
+                </div>
+
+                <div class="col-sm-12">
+                    <label>Who are you?<span class="text-danger"> *</span></label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fa-solid fa-id-card"></i></div>
+                        <select class="form-select" formControlName="roleId">
+                            <option selected >Select your role</option>
+                            <option *ngFor="let user of userRoles" value="{{user.id}}">{{user.roleName}}</option>
+                        </select>
+                    </div>
+                    <span class="form-error-msg">{{roleErrorMsg}}</span>
+                </div>
+                
+                <div class="col-sm-12">
+                    <a routerLink="/login" class="float-end text-primary">Already have account, Login now.</a>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" [disabled]="signupForm.invalid" class="btn btn-primary px-4 float-end">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<app-navbar>
+    <li class="nav-item userLinks">
+        <a class="nav-link" routerLink="/home">Home</a>
+    </li>
+    <li class="nav-item userLinks">
+        <a class="nav-link" routerLink="/aboutus">About</a>
+    </li>
+    <div class="publicBtn">
+        <a routerLink="/signup" class="btn btn-outline-light fw-bold me-2">Sign Up</a>
+    </div>
+</app-navbar>
+<div class="container login-page">
+    <div class="col-lg-6 offset-lg-3">
+        <h3 class="text-center text-white bg-dark p-2 rounded-top" style="margin-bottom: 0px">Login Now</h3>
+        <div class="bg-white shadow rounded h-100 py-5 px-5">
+            <form class="row g-4" [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="col-12">
+                    <label>Email<span class="text-danger"> *</span></label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fa-solid fa-user"></i></div>
+                        <input type="text" class="form-control" placeholder="Enter your email " formControlName="email" />
+                    </div>
+                    <span class="form-error-msg">{{emailErrorMsg}}</span>
+                </div>
+
+                <div class="col-12">
+                    <label>Password<span class="text-danger"> *</span></label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fa-solid fa-lock"></i></div>
+                        <input type="text" class="form-control" placeholder="Enter your password" formControlName="password" />
+                    </div>
+                    <span class="form-error-msg">{{passwordErrorMsg}}</span>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="float-end">
+                        <a routerLink="/signup" class="text-primary">Create account</a> /
+                        <a class="text-primary">Forgot password?</a>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary px-4 float-end">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="contain">
+    <div class="col-lg-8 col-xl-8 col-12 main-div">
+        <div class="customize_solution ">
+            <ul class="nav nav-pills mb-0 tabs nav-justified row" id="pills-tab" role="tablist">
+                <li class="nav-item col-sm-4" role="presentation">
+                    <button class="nav-link active ease-effect w-100" id="publish-tab" data-bs-toggle="pill"
+                        data-bs-target="#publish" type="button" role="tab" aria-controls="publish"
+                        aria-selected="true">Published</button>
+                </li>
+                <li class="nav-item col-sm-4" role="presentation">
+                    <button class="nav-link ease-effect w-100" id="blocked-tab" data-bs-toggle="pill"
+                        data-bs-target="#blocked" type="button" role="tab" aria-controls="blocked"
+                        aria-selected="false">Unpublished</button>
+                </li>
+            </ul>
+            <div class="tab-content pt-0" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="publish" role="tabpanel" aria-labelledby="publish-tab">
+                    <div *ngIf="publishedCourse.length > 0; else activeElse">
+                        <h3 class="text-center bg-dark text-light py-1">List of all published course</h3>
+                        <table
+                            class="table table-striped table-hover border-info table-responsive-lg text-center align-middle">
+                            <thead class="table-info">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Created By</th>
+                                    <th scope="col">Capacity</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <tr *ngFor="let i of publishedCourse; index as s">
+                                    <th scope="row">{{s+1}}</th>
+                                    <td>{{i.courseName}}</td>
+                                    <td>{{i.createdByName}}</td>
+                                    <td>{{i.courseCapacity}}</td>
+                                    <th scope="col"><button class="btn btn-outline-danger btn-sm"
+                                            (click)="deleteCourse(i.courseId)">Delete</button></th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ng-template #activeElse>
+                        <h5 class="text-center text-danger pt-3">
+                            No published course avilable.
+                        </h5>
+                    </ng-template>
+                </div>
+
+                <div class="tab-pane fade" id="blocked" role="tabpanel" aria-labelledby="blocked-tab">
+                    <div *ngIf="unpublishedCourse.length > 0; else blockedElse">
+                        <h3 class="text-center bg-dark text-light py-1">List of all unpublished course</h3>
+                        <table
+                            class="table table-striped table-hover border-danger table-responsive text-center align-middle">
+                            <thead class="table-danger">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Created By</th>
+                                    <th scope="col">Capacity</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <tr *ngFor="let i of unpublishedCourse; index as s">
+                                    <th scope="row">{{s+1}}</th>
+                                    <td>{{i.courseName}}</td>
+                                    <td>{{i.createdByName}}</td>
+                                    <td>{{i.courseCapacity}}</td>
+                                    <th scope="col">
+                                        <button class="btn btn-outline-success btn-sm"
+                                            (click)="publishCourse(i.courseId)">Publish</button>
+                                        <button class="btn btn-outline-danger btn-sm ms-1"
+                                            (click)="deleteCourse(i.courseId)">Delete</button>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ng-template #blockedElse>
+                        <h5 class="text-center text-danger pt-3">
+                            No unpublished course avilable.
+                        </h5>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
